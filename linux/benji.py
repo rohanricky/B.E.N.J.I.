@@ -2,7 +2,7 @@
 import tkinter as tk
 import re
 import os
-import wikipedia
+#import wikipedia
 import time
 import webbrowser
 import json
@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import logging
 #from urllib import urlopen
 import speech_recognition as sr
-import pyttsx
+#import pyttsx
 requests.packages.urllib3.disable_warnings()
 try:
         _create_unverified_https_context=ssl._create_unverified_context
@@ -38,7 +38,7 @@ class MyFrame(tk.Frame):
             self.textBox.focus_set()
             self.put=''
             self.audioInput=''
-            self.say('''Hi Agent! BENJI at your service''')
+            #self.say('''Hi Agent! BENJI at your service''')
 
         def say(self, arg):
             engine = pyttsx.init()
@@ -123,15 +123,13 @@ class MyFrame(tk.Frame):
                         except:
                         	print('Wikipedia could not either find the article or your Third-world connection is unstable')
                #Lock the device
-            elif put.startswith('secure '):
+            elif self.put.startswith('secure '):
                 try:
                     self.say("locking the device")
                     ctypes.windll.user32.LockWorkStation()
                 except :
                     print('Cannot lock device')
-
-        #News of various press agencies
-            elif put.startswith('aljazeera '):
+            elif self.put.startswith('aljazeera '):
                 try:
                     aljazeeraurl = ('https://newsapi.org/v1/articles?source=al-jazeera-english&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(aljazeeraurl)
@@ -146,7 +144,8 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('Qatari agents have refused to share this intel, Ethan')
-            elif put.startswith('bbc '):
+
+            elif self.put.startswith('bbc '):
                 try:
                     bbcurl = ('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(bbcurl)
@@ -161,7 +160,7 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('MI6 is going crazy! Not allowing this!')
-            elif put.startswith('cricket '):
+            elif self.put.startswith('cricket '):
                 try:
                     cricketurl = ('https://newsapi.org/v1/articles?source=espn-cric-info&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(cricketurl)
@@ -176,7 +175,7 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('Connection not secure')
-            elif put.startswith('hindus '):
+            elif self.put.startswith('hindus '):
                 try:
                     hindusurl = ('https://newsapi.org/v1/articles?source=the-hindu&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(hindusurl)
@@ -192,7 +191,7 @@ class MyFrame(tk.Frame):
                 except:
                     print('R&A W is blocking our reports, Ethan. Sorry! ')
 
-            elif any(word in put for word in identity_keywords):
+            elif any(word in self.put for word in identity_keywords):
                 try:
                     self.say("I am BENJI, a digital assistant declassified for civilian use. Previously I was used by the Impossible Missions Force")
 
@@ -228,7 +227,7 @@ class MyFrame(tk.Frame):
                         except:
                         	print('Wikipedia could not either find the article or your Third-world connection is unstable')
        #Lock the device
-            elif put.startswith('secure '):
+            elif self.put.startswith('secure '):
                 try:
                         self.say("locking the device")
 
@@ -237,7 +236,7 @@ class MyFrame(tk.Frame):
                         print('Cannot lock device')
 
         #News of various press agencies
-            elif put.startswith('aljazeera '):
+            elif self.put.startswith('aljazeera '):
                 try:
                     aljazeeraurl = ('https://newsapi.org/v1/articles?source=al-jazeera-english&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(aljazeeraurl)
@@ -252,7 +251,7 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('Qatari agents have refused to share this intel, Ethan')
-            elif put.startswith('bbc '):
+            elif self.put.startswith('bbc '):
                 try:
                     bbcurl = ('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(bbcurl)
@@ -267,7 +266,7 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('MI6 is going crazy! Not allowing this!')
-            elif put.startswith('cricket '):
+            elif self.put.startswith('cricket '):
                 try:
                     cricketurl = ('https://newsapi.org/v1/articles?source=espn-cric-info&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(cricketurl)
@@ -282,7 +281,7 @@ class MyFrame(tk.Frame):
                         i += 1
                 except:
                     print('Connection not secure')
-            elif put.startswith('hindus '):
+            elif self.put.startswith('hindus '):
                 try:
                     hindusurl = ('https://newsapi.org/v1/articles?source=the-hindu&sortBy=latest&apiKey=571863193daf421082a8666fe4b666f3')
                     newsresponce = requests.get(hindusurl)
