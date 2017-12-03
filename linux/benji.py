@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import logging
 #from urllib import urlopen
 import speech_recognition as sr
-#import pyttsx
+import pyttsx3 as pyttsx
 requests.packages.urllib3.disable_warnings()
 try:
         _create_unverified_https_context=ssl._create_unverified_context
@@ -47,6 +47,7 @@ class MyFrame(tk.Frame):
 
         def audio(self):
             r = sr.Recognizer()
+            print("Say something!")
             with sr.Microphone() as source:
                 audio = r.listen(source)
             try:
@@ -62,6 +63,8 @@ class MyFrame(tk.Frame):
                 self.audio()
                 self.put=self.audioInput
             print(self.put)
+            link = self.put.split()
+            print(link)
             #self.textBox.insert('0',"")
             identity_keywords = ["who are you", "who r u", "what is your name"]
             youtube_keywords = ["play", "stream", "queue"]
@@ -96,8 +99,8 @@ class MyFrame(tk.Frame):
         #Open a webpage
             elif any(word in self.put for word in launch_keywords):
                         try:
-                            self.say("opening "+link[1])
                             print(link[1])
+                            self.say("opening "+link[1])
                             webbrowser.open('http://www.'+link[1]+'.com')
                         except:
                             print('Sorry Ethan,unable to access it. Cannot hack either-IMF protocol!')
@@ -315,11 +318,6 @@ class MyFrame(tk.Frame):
                 except:
                     print("Unknown error occurred, while taking speech input!")
 '''
-         #Play song on  Youtube
-
-
-        #Who are you?
-
 
     #Trigger the GUI. Light the fuse!
 if __name__=="__main__":
