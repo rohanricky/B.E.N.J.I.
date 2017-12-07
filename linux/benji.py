@@ -2,7 +2,7 @@
 import tkinter as tk
 import re
 import os
-#import wikipedia
+import wikipedia
 import time
 import webbrowser
 import json
