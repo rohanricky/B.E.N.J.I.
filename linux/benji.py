@@ -9,7 +9,7 @@ import json
 import requests
 import ctypes
 import random
-import urllib
+from urllib.request import urlopen
 import ssl
 from bs4 import BeautifulSoup
 import logging
@@ -32,13 +32,14 @@ i=0
 class MyFrame(tk.Frame):
         def __init__(self,*args,**kwargs):
             tk.Frame.__init__(self,*args,**kwargs)
-            self.textBox = tk.Text(root,height=2,width=10)
+            self.textBox = tk.Text(root,height=1,width=50)
             self.textBox.pack()
             root.bind('<Return>', self.OnEnter)
             self.textBox.focus_set()
             self.put=''
             self.audioInput=''
-            #self.say('''Hi Agent! BENJI at your service''')
+            self.say('''Hi Agent! BENJI at your service''')
+            self.btn = tk.Button(root, text="Click to Speak",command=self.audio).pack()
 
         def say(self, arg):
             engine = pyttsx.init()
@@ -59,9 +60,6 @@ class MyFrame(tk.Frame):
 
         def OnEnter(self,event=None):
             self.put=self.textBox.get("1.0","end-1c")
-            if(self.put==''):
-                self.audio()
-                self.put=self.audioInput
             print(self.put)
             link = self.put.split()
             print(link)
@@ -79,7 +77,7 @@ class MyFrame(tk.Frame):
                     say = link.replace('+', ' ')
                     url = 'https://www.youtube.com/results?search_query='+link
 #                    webbrowser.open('https://www.youtube.com'+link)
-                    fhand=urllib.request.urlopen(url).read()
+                    fhand=urlopen(url).read()
                     soup = BeautifulSoup(fhand, "html.parser")
                     songs = soup.findAll('div', {'class': 'yt-lockup-video'})
                     hit = songs[0].find('a')['href']
