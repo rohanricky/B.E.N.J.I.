@@ -24,9 +24,6 @@ else:
         ssl._create_default_https_context=_create_unverified_https_context
 
 headers = {'''user-agent':'Chrome/53.0.2785.143'''}
-#speak=wicl.Dispatch("SAPI.SpVoice")
-
-# Creating the graphical user interface
 
 speak = pyttsx3.init()
 
@@ -39,15 +36,12 @@ def events(put,link):
     if any(word in put for word in youtube_keywords):
         try:
             link = '+'.join(link[1:])
-#                   print(link)
             say = link.replace('+', ' ')
             url = 'https://www.youtube.com/results?search_query='+link
-#                 webbrowser.open('https://www.youtube.com'+link)
             fhand=urllib.request.urlopen(url).read()
             soup = BeautifulSoup(fhand, "html.parser")
             songs = soup.findAll('div', {'class': 'yt-lockup-video'})
             hit = songs[0].find('a')['href']
-#                   print(hit)
             speak.say("playing "+say)
             speak.runAndWait()
             webbrowser.open('https://www.youtube.com'+hit)
@@ -186,7 +180,6 @@ class MyFrame(tk.Frame):
             if put=='':
                print('Reenter')
 
-         #Play song on  Youtube
 
     def OnClicked(self):
         r = sr.Recognizer()
@@ -200,7 +193,7 @@ class MyFrame(tk.Frame):
             self.textBox.insert('1.0',put)
             put=put.lower()
             put = put.strip()
-                #put = re.sub(r'[?|$|.|!]', r'', put)
+            put = re.sub(r'[?|$|.|!]', r'', put)
             link=put.split()
             events(put,link)
 
